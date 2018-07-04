@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Heatmap Test</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="pointerfocus/0.1.0/pointerfocus.min.js"></script>
+        <style>
+            body{
+                margin: 0px;
+                padding: 0px;
+                overflow: hidden;
+            }
+            #heatmap{
+                width: 100%;
+                height: 100%;
+            }
+            .heat{
+                width: 25px;
+                height: 25px;
+                background-color:rgb(255,255,255);
+                border: 1px solid #aaa;
+                display: block;
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="heatmap">
+        </div>
+        <script>
+            var width = 0;
+            var height = 0;
+            var ids = [];
+            var interval = setInterval(function(){
+                                ids.forEach(function(item){
+                                    redder($(`#${item}`));
+                                });
+                            },50);
+            $(document).ready(function(){
+                width = $('body').width();
+                height = $('body').height();
+                gridder($('#heatmap'),width,height);
+                tracker($('.heat'));
+            });
+            $(window).resize(function(){
+                width = $('body').width();
+                height = $('body').height();
+                $('.heat').remove();
+                gridder($('#heatmap'),width,height);
+                tracker($('.heat'));
+            });
+        </script>
+    </body>
+</html>
